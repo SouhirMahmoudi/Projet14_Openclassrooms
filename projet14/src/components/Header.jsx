@@ -10,7 +10,7 @@ import logo from "../assets/logoHrnet.png";
 function Header() {
   return (
     <Head>
-      <NavLink to="/CreateEmployee">
+      <NavLink to="/">
         <img src={logo} alt="Wealth Health Logo" />
         <h1>Wealth Health</h1>
       </NavLink>
