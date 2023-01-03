@@ -29,11 +29,11 @@ function CreateEmployee() {
    }
 
 
-   const [dateSelected, updateDate] = useState();
+   const [dateSelected, updateDate] = useState("");
    let formatDateBirth = new Date(dateSelected).toLocaleString().split(",")[0]
    let formatFinalDateBirth = formatDateBirth.toLocaleString().split(" ")[0]
 
-   const [startdateSelected, updateStartDate] = useState();
+   const [startdateSelected, updateStartDate] = useState("");
    let formatstartdate = new Date(startdateSelected).toLocaleString().split(",")[0]
    let formatFinalstartdate = formatstartdate.toLocaleString().split(" ")[0]
    const [selectedDepart, setSelectedDepart] = useState(data.Departments[0].label);
@@ -54,16 +54,25 @@ function CreateEmployee() {
       e.preventDefault()
       const newEmployee = {
          firstName: firstName,
-         lastname: lastName,
+         lastName: lastName,
          dateOfBirth: formatFinalDateBirth,
          startDate: formatFinalstartdate,
-         street: street, state: selectedState,
+         street: street,
+         state: selectedState,
          city: city,
-         zipCode: zipCode
+         zipCode: zipCode,
+         department: selectedDepart
       }
-
-      dispatch(createEmployee(newEmployee))
-      displayModal()
+      if ((firstName === "") || (lastName === "") ||
+         (formatFinalDateBirth === "") || (formatFinalstartdate === "") || (street === "")
+         || (selectedState === "") || (street === "") || (selectedState === "")
+      ) {
+         alert("Invalid fields!!")
+      }
+      else {
+         dispatch(createEmployee(newEmployee))
+         displayModal()
+      }
    }
    console.log(store.getState().users)
    return (
@@ -95,7 +104,7 @@ function CreateEmployee() {
                </FormItem>
                <FormItem>
                   <label htmlFor="start-date">Start Date</label>
-                  <input id="start-date" type="text" value={formatFinalstartdate} onClick={() => {
+                  <input id="start-date" type="text"  placeholder="" defaultValue="" value={formatFinalstartdate} onClick={() => {
                      document.getElementsByClassName('CalenderContainerstartDate')[0].style.display = "block"
                   }} />
                   <CalenderContainerStart className="CalenderContainerstartDate"> <Calendar onChange={updateStartDate}
