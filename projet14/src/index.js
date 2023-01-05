@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {Routes, Route, HashRouter } from 'react-router-dom';
 import CreateEmployee from './pages/CreateEmployee';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -12,13 +12,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route  exact path="/" element={<CreateEmployee />}/>
         <Route  exact path="/EmployeeList" element={<ListEmployee/>}/>
        
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
   </Provider>
 );

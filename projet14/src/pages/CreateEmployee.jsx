@@ -29,19 +29,20 @@ function CreateEmployee() {
    }
 
 
-   const [dateSelected, updateDate] = useState("");
+   const [dateSelected, updateDate] = useState(new Date());
+   console.log(dateSelected)
    let formatDateBirth = new Date(dateSelected).toLocaleString().split(",")[0]
    let formatFinalDateBirth = formatDateBirth.toLocaleString().split(" ")[0]
-
-   const [startdateSelected, updateStartDate] = useState("");
+console.log(formatFinalDateBirth)
+   const [startdateSelected, updateStartDate] = useState(new Date());
    let formatstartdate = new Date(startdateSelected).toLocaleString().split(",")[0]
    let formatFinalstartdate = formatstartdate.toLocaleString().split(" ")[0]
-   const [selectedDepart, setSelectedDepart] = useState(data.Departments[0].label);
+   const [selectedDepart, setSelectedDepart] = useState();
    /*const handleChangeDepart = (event) => {
       console.log(event.target.value);
       setSelectedDepart(event.target.value);
    };*/
-   const [selectedState, setSelectedState] = useState(data.States[0].label);
+   const [selectedState, setSelectedState] = useState();
    /*const handleChangeState = (event) => {
       console.log(event.target.value);
      ;
@@ -83,7 +84,7 @@ function CreateEmployee() {
             <form action="#" id="create-employee">
                <FormItem>
                   <label htmlFor="first-name">First Name</label>
-                  <input type="text" id="first-name" value={firstName} onChange={(e) => setfirstName(e.target.value)} />
+                  <input type="text" id="first-name"  value={firstName} onChange={(e) => setfirstName(e.target.value)} />
                </FormItem>
                <FormItem>
                   <label htmlFor="last-name">Last Name</label>
@@ -91,7 +92,7 @@ function CreateEmployee() {
                </FormItem>
                <FormItem>
                   <label htmlFor="date-of-birth">Date of Birth</label>
-                  <input id="date-of-birth" type="text" value={formatFinalDateBirth} onClick={() => {
+                  <input id="date-of-birth" type="text"  value={formatFinalDateBirth} onClick={() => {
                      document.getElementsByClassName('CalenderContainerBirth')[0].style.display = "block"
                   }} />
                   <CalenderContainerBirth className="CalenderContainerBirth"> <Calendar onChange={updateDate}
@@ -128,6 +129,7 @@ function CreateEmployee() {
                      <label htmlFor="state">State</label>
                      <Select
                         name="form-field-name"
+                        placeholder={data.States[0].label}
                         label={selectedState}
                         options={data.States}
                         onChange={(e) => setSelectedState(e.label)}
@@ -140,6 +142,7 @@ function CreateEmployee() {
                   <label htmlFor="department">Department</label>
                   <Select
                      name="form-field-name"
+                     placeholder ={data.Departments[0].label}
                      label={selectedDepart}
                      options={data.Departments}
                      onChange={(e) => setSelectedDepart(e.label)}
