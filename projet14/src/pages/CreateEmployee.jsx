@@ -92,7 +92,7 @@ function CreateEmployee() {
                </FormItem>
                <FormItem>
                   <label htmlFor="date-of-birth">Date of Birth</label>
-                  <input id="date-of-birth" type="text" value={formatFinalDateBirth} onClick={() => {
+                  <input id="date-of-birth" type="text" value={formatFinalDateBirth}  onClick={() => {
                      document.getElementsByClassName('CalenderContainerBirth')[0].style.display = "block"
                   }} />
                   <CalenderContainerBirth className="CalenderContainerBirth"> <Calendar onChange={updateDate}
@@ -105,7 +105,7 @@ function CreateEmployee() {
                </FormItem>
                <FormItem>
                   <label htmlFor="start-date">Start Date</label>
-                  <input id="start-date" type="text" placeholder="" defaultValue="" value={formatFinalstartdate} onClick={() => {
+                  <input id="start-date" type="text" value={formatFinalstartdate} onClick={() => {
                      document.getElementsByClassName('CalenderContainerstartDate')[0].style.display = "block"
                   }} />
                   <CalenderContainerStart className="CalenderContainerstartDate"> <Calendar onChange={updateStartDate}
