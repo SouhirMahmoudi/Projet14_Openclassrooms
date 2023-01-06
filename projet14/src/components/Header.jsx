@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import logo from "../assets/logoHrnet.png";
+
 
 /**
  * React component to create a header
