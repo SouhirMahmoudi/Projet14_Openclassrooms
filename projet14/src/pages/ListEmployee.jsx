@@ -1,19 +1,24 @@
 import React from 'react';
-import Header from '../components/Header';
 import { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import styled from 'styled-components';
-import { json, NavLink } from "react-router-dom";
-import logo from "../assets/logoHrnet.png";
+import { NavLink } from "react-router-dom";
 import Select from 'react-select';
 
+/**
+ * React component to create the list employee page
+ * @returns { React.ReactElement } employee page component
+ */
 
 export default function ListEmployee() {
-  const [searchValue, setsearchValue] = useState("");
+
+  // define value of show's dropdown
   const NumberShow = [{ "label": "10", "value": "10" }, { "label": "25", "value": "25" }, { "label": "50", "value": "50" }, { "label": "100", "value": "100" },
   ]
+  // select value of show's dropdown
   const [selectedNumberShow, setNumberShow] = useState(NumberShow[0].label);
-  let searValueLowerCase = searchValue.toLowerCase();
+
+  //define the titles of data table's columns
   const columns = [
     {
       name: 'FirstName',
@@ -23,7 +28,7 @@ export default function ListEmployee() {
       name: 'LastName',
       selector: row => row.lastName,
     },
-   
+
     {
       name: 'StartDate',
       selector: row => row.startDate,
@@ -54,24 +59,31 @@ export default function ListEmployee() {
       selector: row => row.zipCode,
     }
   ];
-
+  // format list employees 
   let data = localStorage.getItem("employees");
-  if(data){
+  if (data) {
     data = JSON.parse(data)
   }
   else {
-     data = []
+    data = []
   }
   console.log(data)
+  // search bar 
+  //get search value
+  const [searchValue, setsearchValue] = useState("");
+  //change it to loweCase
+  let searValueLowerCase = searchValue.toLowerCase();
+  //sort data and return only data includes search value
   let dataSorted = [];
   if (searchValue !== "") {
     dataSorted = data.filter((user) => {
-      return ((user.firstName.toLowerCase().includes(searValueLowerCase) ) || (user.lastName.toLowerCase().includes(searValueLowerCase)) || (user.dateOfBirth.includes(searValueLowerCase)) ||
+      return ((user.firstName.toLowerCase().includes(searValueLowerCase)) || (user.lastName.toLowerCase().includes(searValueLowerCase)) || (user.dateOfBirth.includes(searValueLowerCase)) ||
         (user.startDate.includes(searValueLowerCase)) || (user.street.toLowerCase().includes(searValueLowerCase)) || (user.city.toLowerCase().includes(searValueLowerCase)) ||
         (user.state.toLowerCase().includes(searValueLowerCase)) || (user.zipCode.includes(searValueLowerCase)) || (user.department.toLowerCase().includes(searValueLowerCase))
       )
     })
   }
+  //to clear localstorage we can add this two lignes
   // const deletestorage = () =>{ localStorage.clear()}
   //   <button onClick={deletestorage}/>
   return (
@@ -83,20 +95,20 @@ export default function ListEmployee() {
           </NavLink>
           <h2>Current Employees</h2>
           <Container>
-          <ContainerShow>
-          <label htmlFor="state">Show</label>
-          <Select
-            name="state"
-            placeholder={selectedNumberShow}
-            label={selectedNumberShow}
-            options={NumberShow}
-            onChange={(e) => setNumberShow(e.label)}
-          /> <p>entries</p>
-          </ContainerShow>
-          <ContainerSearch>
-          <label htmlFor="search">Search:</label>
-          <input name ="search" type="search" onChange={(e) => setsearchValue(e.target.value)} />
-          </ContainerSearch>
+            <ContainerShow>
+              <label htmlFor="state">Show</label>
+              <Select
+                name="state"
+                placeholder={selectedNumberShow}
+                label={selectedNumberShow}
+                options={NumberShow}
+                onChange={(e) => setNumberShow(e.label)}
+              /> <p>entries</p>
+            </ContainerShow>
+            <ContainerSearch>
+              <label htmlFor="search">Search:</label>
+              <input name="search" type="search" onChange={(e) => setsearchValue(e.target.value)} />
+            </ContainerSearch>
           </Container>
           <DataTable
             columns={columns}
@@ -104,33 +116,33 @@ export default function ListEmployee() {
           />
         </PageEmployees>) : (
         <PageEmployees>
-        <NavLink className="logo" to="/">
-         
-          <h1>HRnet</h1>
-        </NavLink>
-        <h2>Current Employees</h2>
-        <Container>
-        <ContainerShow>
-        <label htmlFor="state">Show</label>
-        <Select
-          name="state"
-          placeholder={selectedNumberShow}
-          label={selectedNumberShow}
-          options={NumberShow}
-          onChange={(e) => setNumberShow(e.label)}
-        /> <p>entries</p>
-        </ContainerShow>
-        <ContainerSearch>
-        <label htmlFor="search">Search:</label>
-        <input name ="search" type="search" onChange={(e) => setsearchValue(e.target.value)} />
-        </ContainerSearch>
-        </Container>
-        <DataTable
-          columns={columns}
-          data={dataSorted}
-        />
-      </PageEmployees>)
-      
+          <NavLink className="logo" to="/">
+
+            <h1>HRnet</h1>
+          </NavLink>
+          <h2>Current Employees</h2>
+          <Container>
+            <ContainerShow>
+              <label htmlFor="state">Show</label>
+              <Select
+                name="state"
+                placeholder={selectedNumberShow}
+                label={selectedNumberShow}
+                options={NumberShow}
+                onChange={(e) => setNumberShow(e.label)}
+              /> <p>entries</p>
+            </ContainerShow>
+            <ContainerSearch>
+              <label htmlFor="search">Search:</label>
+              <input name="search" type="search" onChange={(e) => setsearchValue(e.target.value)} />
+            </ContainerSearch>
+          </Container>
+          <DataTable
+            columns={columns}
+            data={dataSorted}
+          />
+        </PageEmployees>)
+
       }
     </div>
   )
@@ -156,7 +168,6 @@ a.logo {
     display: inline-flex;
     width: 100px;
     text-decoration: none;
-    /* color: black; */
     align-items: center;
   }
 h2{
@@ -179,5 +190,5 @@ align-items: center;
 
 
 `
-const ContainerSearch = styled.div `
+const ContainerSearch = styled.div`
 `
